@@ -41,9 +41,44 @@ void EventHists::Fill()
    // important: get the event weight
   EventCalc* calc = EventCalc::Instance();
   double weight = calc -> GetWeight();
-  
-  LuminosityHandler* lumih = calc->GetLumiHandler();
   BaseCycleContainer* bcc = calc->GetBaseCycleContainer();
+  TopJet topjet;
+  
+  // topjet=  bcc->topjets->at(0);
+	  //pythia with allpf
+	  // weight=(-0.000454599*topjet.pt()+1.85542)*weight;
+	  //pythia
+	  //if(topjet.pt()<600) weight=(-0.00769656*topjet.pt()+5.6314)*weight;
+	  // weight=(-0.000379343*(topjet.pt()-80)+1.42218)*weight;
+	  //polynom CA15 pythia gauss
+	  // weight=(1.09821e+00*exp(-0.5*pow((topjet.pt()-4.51606e+02)/4.73986e+01,2))+1.35922e+00-3.04198e-04*topjet.pt())*weight;
+	  // if(weight<0) weight=0;
+	  //[0]*exp(-0.5*((x-[1])/[2])**2)
+
+	  /*  weight=
+	    (-537.779+
+	    5.76144*topjet.pt()
+	    -0.0260814*pow(topjet.pt(),2)
+	    +6.60249e-05*pow(topjet.pt(),3)
+	    -1.0344e-07*pow(topjet.pt(),4)
+	    +1.04341e-10*pow(topjet.pt(),5)
+	    -6.79438e-14*pow(topjet.pt(),6)
+	    +2.76038e-17*pow(topjet.pt(),7)
+	    -6.36222e-21*pow(topjet.pt(),8)
+	    +6.35006e-25*pow(topjet.pt(),9))*weight;*/
+	  //herwig
+	  // weight=(0.000948735*topjet.pt()+1.47648)*weight;
+	  // pythia CA8
+	  // weight=(-0.000377752*topjet.pt()+1.59353)*weight;
+	  //herwig CA8
+  //	  weight=(0.00137297*topjet.pt()+1.49578)*weight;
+	  //  if(topjet.pt()<400) weight=weight;
+	  // else weight=(-0.000395331*topjet.pt()+1.59101)*weight;
+
+
+
+  LuminosityHandler* lumih = calc->GetLumiHandler();
+  //  BaseCycleContainer* bcc = calc->GetBaseCycleContainer();
 
   int NPrimVertices = bcc-> pvs -> size();
   Hist("N_PrimVertices")-> Fill(NPrimVertices,weight);

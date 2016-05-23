@@ -4,6 +4,10 @@
 #include "SFrameTools/include/BaseHists.h"
 #include "NtupleWriter/include/TopJet.h"
 #include "NtupleWriter/include/GenParticle.h"
+#include "../LapsienAnalysis/include/Showerdeconstruction.h"
+#include "../LapsienAnalysis/include/SoftDrop.h"
+#include "../LapsienAnalysis/include/Jetswithoutjets.h"
+#include "../LapsienAnalysis/include/ECF.h"
 
 /**
  *   Example class for booking and filling histograms
@@ -43,10 +47,18 @@ public:
    Double_t RecGenMatch(TopJet tj, GenParticle gen);
 
 private:
-   
+   Showerdeconstruction* Showerdeconstruction_tagger;
+   SoftDrop* Softdrop;
+   Jetswithoutjets* jwj;
+   ECF* ecf;
    TTree* m_tree;
-   
+   double m_chi; //Shower deconstruction
    // variables for the TMVA training   
+   Double_t m_pf_pt[100]; //pt of pf candidates
+   Double_t m_pf_phi[100];
+   Double_t m_pf_eta[100];
+   Double_t m_pf_energy[100];
+   Double_t m_pf_charge[100];
    Double_t m_px;       // px of the CA-fat jet	 
    Double_t m_py;       // py of the CA-fat jet	 
    Double_t m_pz;       // pz of the CA-fat jet	 
@@ -84,6 +96,26 @@ private:
    Double_t m_pruned_tau4;     // N-subjettiness for pruned jet, tau = 4
 
    Double_t m_qjets;    // Q-jets volatility
+   Double_t m_qjet_mmin;
+   Double_t m_qjet_mass;
+   Double_t  m_qjet_nsubjets;
+   Double_t  m_qjet_nsubjettiness1;
+   Double_t  m_qjet_nsubjettiness2;
+   Double_t  m_qjet_nsubjettiness3;
+
+   //jwj
+
+   Double_t m_jetm01;
+  Double_t m_jetm02;
+   Double_t m_jetm03;
+   Double_t m_jetm04;
+
+   //ecf
+   Double_t m_c3;
+   Double_t m_d3;
+
+   //softdrop
+   Double_t m_softdrop_mass;
 
    Int_t m_nsubs;       // number of sub-jets
    Bool_t m_HEPTopTag;  // tag from HEP Top Tagger
